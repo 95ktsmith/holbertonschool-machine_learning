@@ -1,9 +1,8 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 """ Multidimensional array shape """
 import numpy as np
 
 
 def np_shape(matrix):
     """ Returns the shape of a numpy.ndarray """
-    shape = matrix.shape
-    return shape
+    return matrix.shape
