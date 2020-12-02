@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 """ Matrix operations """
-import numpy as np
 
 
 def np_elementwise(mat1, mat2):
