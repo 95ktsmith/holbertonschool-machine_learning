@@ -8,11 +8,13 @@ def poly_derivative(poly):
         power of their index
         Returns None if poly is not valid
     """
-    if type(poly) is not list:
+    if type(poly) is not list or len(poly) == 0:
         return None
     for item in poly:
         if type(item) is not int:
             return None
+    if len(poly) == 1:
+        return [0]
 
     derivative = []
     for power in range(len(poly) - 1, 0, -1):
