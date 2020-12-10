@@ -22,4 +22,10 @@ def poly_integral(poly, C=0):
         else:
             integral.append(coefficient)
 
+    for i in range(len(integral) - 1, 0, -1):
+        if integral[i] == 0:
+            del integral[i]
+        else:
+            break
+
     return integral
