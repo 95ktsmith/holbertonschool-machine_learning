@@ -11,7 +11,7 @@ def poly_integral(poly, C=0):
     for item in poly:
         if type(item) is not int:
             return None
-    if type(C) is not int and type(C) is not float:
+    if type(C) is not int:
         return None
 
     integral = [C]
