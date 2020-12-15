@@ -36,6 +36,10 @@ class Poisson:
         """ Calculates the value of the CDF for a given number of successes,
             where k is the number of successes
         """
+        if type(k) is not int:
+            k = int(k)
+        if k < 0:
+            return 0
         cdf = 0
         e = 2.7182818285
         for i in range(0, k + 1):
