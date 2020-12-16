@@ -18,10 +18,5 @@ class Exponential:
                 raise TypeError("data must be a list")
             if len(data) < 2:
                 raise ValueError("data must contain multiple values")
-            avg = 0
-            for i in range(0, len(data) - 1):
-                time = data[i + 1] - data[i]
-                if time < 0:
-                    time *= -1
-                avg += time
-            self.lambtha = round(float(avg / len(data) * 10), 2)
+
+            self.lambtha = 1 / (sum(data) / len(data))
