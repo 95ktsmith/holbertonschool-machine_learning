@@ -43,6 +43,18 @@ class Binomial:
         coeff = fact(self.n) / (fact(k) * fact(self.n - k))
         return coeff * self.p ** k * (1 - self.p) ** (self.n - k)
 
+    def cdf(self, k):
+        """ Calculates the value of the CDF for a given number of successes """
+        if type(k) is not int:
+            k = int(k)
+        if k < 0 or k > self.n:
+            return 0
+
+        sum = 0
+        for i in range(0, k + 1):
+            sum += self.pmf(i)
+        return sum
+
 
 def fact(n):
     """ Returns the factorial value of an integer """
