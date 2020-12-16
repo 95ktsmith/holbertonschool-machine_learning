@@ -32,3 +32,20 @@ class Binomial:
             p = 1 - (var / mean)
             self.n = round(mean / p)
             self.p = mean / self.n
+
+    def pmf(self, k):
+        """ Calculates the value of the PMF for a given number of successes """
+        if type(k) is not int:
+            k = int(k)
+        if k < 0 or k > self.n:
+            return 0
+
+        coeff = fact(self.n) / (fact(k) * fact(self.n - k))
+        return coeff * self.p ** k * (1 - self.p) ** (self.n - k)
+
+
+def fact(n):
+    """ Returns the factorial value of an integer """
+    if n == 0 or n == 1:
+        return 1
+    return n * fact(n - 1)
