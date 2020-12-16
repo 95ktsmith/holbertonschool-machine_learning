@@ -20,9 +20,9 @@ class Binomial:
             self.p = float(p)
         else:
             if type(data) is not list:
-                raise TypeError("data must be a lsit")
+                raise TypeError("data must be a list")
             if len(data) < 2:
-                raise ValueError("data must have multiple values")
+                raise ValueError("data must contain multiple values")
 
             mean = sum(data) / len(data)
             var = 0
