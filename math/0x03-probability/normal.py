@@ -46,14 +46,16 @@ class Normal:
 
     def cdf(self, x):
         """ Calculates the value of the CDF for a given x-value """
-        return (1 + erf((x - self.mean) / (self.stddev * (2 ** 0.5)))) / 2
+        return (1 + erf((x - self.mean) / (self.stddev * 2 ** 0.5))) / 2
 
-    def erf(self, x):
-        """ Caluclates the erf value of an input """
-        pi = 3.1415926536
-        val = x
-        val -= (x ** 3) / 3
-        val += (x ** 5) / 10
-        val -= (x ** 7) / 42
-        val += (x ** 9) / 216
-        val *= (2 / (pi ** 1/2))
+
+def erf(x):
+    """ Caluclates the erf value of an input """
+    pi = 3.1415926536
+    val = x
+    val -= (x ** 3) / 3
+    val += (x ** 5) / 10
+    val -= (x ** 7) / 42
+    val += (x ** 9) / 216
+    val *= (2 / (pi ** .5))
+    return val
