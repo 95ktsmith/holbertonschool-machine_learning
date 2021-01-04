@@ -47,11 +47,8 @@ class Neuron:
                 output of the neuron for each example
             Returns calculated cost
         """
-        cost = 0
-        for i in range(0, len(Y[0])):
-            # Using L(Y, A) = -(Ylog(A) + (1 - Y)log(1 - A))
-            L = (Y[0][i] * np.log(A[0][i]))
-            L += (1.0000001 - Y[0][i]) * np.log(1.0000001 - A[0][i])
-            cost -= L
-        cost /= len(Y[0])
-        return cost
+        # Using L(Y, A) = -(Ylog(A) + (1 - Y)log(1 - A)) loss function
+        cost = np.matmul(Y, np.log(A).T)
+        cost += np.matmul((1 - Y), np.log(1.0000001 - A).T)
+        cost /= len(Y[0]) * -1
+        return cost[0][0]
