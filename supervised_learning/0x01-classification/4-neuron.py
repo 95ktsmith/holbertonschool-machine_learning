@@ -67,5 +67,16 @@ class Neuron:
                     and 0 otherwise
         """
         self.forward_prop(X)
-        P = np.array([[1 if n >= 0.5 else 0 for n in self.A[0]]])
+        P = np.array([list(map(lambda x: 1 if x >= 0.5 else 0, self.A[0]))])
         return P, self.cost(Y, self.A)
+
+if __name__ == "__main__":
+    lib_train = np.load('../data/Binary_Train.npz')
+    X_3D, Y = lib_train['X'], lib_train['Y']
+    X = X_3D.reshape((X_3D.shape[0], -1)).T
+
+    np.random.seed(0)
+    neuron = Neuron(X.shape[0])
+    A, cost = neuron.evaluate(X, Y)
+    print(A)
+    print(cost)
