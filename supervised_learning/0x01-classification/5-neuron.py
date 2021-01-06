@@ -70,7 +70,7 @@ class Neuron:
         P = np.array([list(map(lambda x: 1 if x >= 0.5 else 0, self.A[0]))])
         return P, self.cost(Y, self.A)
 
-    def gradient_descent(self, X, Y, A, alpha=0.5):
+    def gradient_descent(self, X, Y, A, alpha=0.05):
         """ Calculates one pass of gradient descent
             X with shape (nx, m) contains input data
             Y with shape (1, m) contains the correct labels for the input data
@@ -84,3 +84,15 @@ class Neuron:
         db = np.sum(A - Y) / m
         self.__W -= alpha * dw.T
         self.__b -= alpha * db
+
+if __name__ == "__main__":
+    lib_train = np.load('../data/Binary_Train.npz')
+    X_3D, Y = lib_train['X'], lib_train['Y']
+    X = X_3D.reshape((X_3D.shape[0], -1)).T
+
+    np.random.seed(0)
+    neuron = Neuron(X.shape[0])
+    A = neuron.forward_prop(X)
+    neuron.gradient_descent(X, Y, A, 0.5)
+    print(neuron.W)
+    print(neuron.b)
