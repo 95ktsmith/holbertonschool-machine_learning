@@ -37,17 +37,17 @@ class DeepNeuralNetwork:
                 self.__weights['W{}'.format(i + 1)] = w
                 self.__weights['b{}'.format(i + 1)] = np.zeros((layers[i], 1))
 
-        @property
-        def L(self):
-            """ L getter """
-            return self.__L
+    @property
+    def L(self):
+        """ L getter """
+        return self.__L
 
-        @property
-        def cache(self):
-            """ cache getter """
-            return self.__cache
+    @property
+    def cache(self):
+        """ cache getter """
+        return self.__cache
 
-        @property
-        def weights(self):
-            """ weights getter """
-            return self.__weights
+    @property
+    def weights(self):
+        """ weights getter """
+        return self.__weights
