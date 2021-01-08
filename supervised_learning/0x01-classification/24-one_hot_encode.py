@@ -8,7 +8,7 @@ def one_hot_encode(Y, classes):
         Y is a numpy.ndarray with shape (m,) containing numeric class labels
         classes is the maximum number of classes found in Y
     """
-    if classes < 1:
+    if classes < 1 or len(Y) < 1:
         return None
 
     mat = np.zeros((classes, len(Y)))
