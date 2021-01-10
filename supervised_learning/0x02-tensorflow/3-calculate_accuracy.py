@@ -9,4 +9,7 @@ def calculate_accuracy(y, y_pred):
         y_pred is a tensor containing the network's predicitions
         Returns a tensor containing the decmial accuracy of the prediction
     """
-    return tf.math.reduce_mean(tf.cast(tf.math.equal(y_pred, y), tf.float32))
+    prediction = tf.math.argmax(y_pred, axis=1)
+    correct = tf.math.argmax(y, axis=1)
+    equality = tf.math.equal(prediction, correct)
+    return tf.math.reduce_mean(tf.cast(equality, tf.float32))
