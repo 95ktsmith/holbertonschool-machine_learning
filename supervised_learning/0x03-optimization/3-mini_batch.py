@@ -36,13 +36,12 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
         loss = tf.get_collection("loss")[0]
         train_op = tf.get_collection("train_op")[0]
 
-        train_dict = {x: X_train, y: Y_train}
-        valid_dict = {x: X_valid, y: Y_valid}
         saver = tf.train.Saver()
         sess.run(tf.global_variables_initializer())
+        train_dict = {x: X_train, y: Y_train}
+        valid_dict = {x: X_valid, y: Y_valid}
 
         for epoch in range(epochs):
-            X_train, Y_train = shuffle_data(X_train, Y_train)
             epoch_train_cost = sess.run(loss, feed_dict=train_dict)
             epoch_train_acc = sess.run(accuracy, feed_dict=train_dict)
             epoch_valid_cost = sess.run(loss, feed_dict=valid_dict)
@@ -51,9 +50,10 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
             print("\tTraining Cost: {}".format(epoch_train_cost))
             print("\tTraining Accuracy: {}".format(epoch_train_acc))
             print("\tValidation Cost: {}".format(epoch_valid_cost))
-            print("\tValidation Accuracy {}".format(epoch_valid_acc))
+            print("\tValidation Accuracy: {}".format(epoch_valid_acc))
 
             step = 0
+            X_shuffled, Y_shuffled = shuffle_data(X_train, Y_train)
             for batch in range(int(X_train.shape[0] / batch_size) + 1):
                 if step > 0 and step % 100 == 0:
                     step_cost = sess.run(loss, feed_dict=mini_dict)
@@ -63,8 +63,8 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
                     print("\t\tAccuracy: {}".format(step_acc))
                 start = batch * batch_size
                 end = (batch + 1) * batch_size
-                mini_dict = {x: X_train[start:end],
-                             y: Y_train[start:end]}
+                mini_dict = {x: X_shuffled[start:end],
+                             y: Y_shuffled[start:end]}
                 sess.run(train_op, feed_dict=mini_dict)
                 step += 1
 
@@ -76,7 +76,7 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
         print("\tTraining Cost: {}".format(epoch_train_cost))
         print("\tTraining Accuracy: {}".format(epoch_train_acc))
         print("\tValidation Cost: {}".format(epoch_valid_cost))
-        print("\tValidation Accuracy {}".format(epoch_valid_acc))
+        print("\tValidation Accuracy: {}".format(epoch_valid_acc))
         saver.save(sess, save_path)
 
     return save_path
