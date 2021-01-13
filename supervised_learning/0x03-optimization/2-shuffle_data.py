@@ -13,6 +13,5 @@ def shuffle_data(X, Y):
             ny is the number of features in Y
         Returns: the shuffled X and Y matrices
     """
-    x_shuffled = np.random.permutation(X)
-    y_shuffled = np.random.permutation(Y)
-    return x_shuffled, y_shuffled
+    permutation = np.random.permutation(len(X))
+    return X[permutation], Y[permutation]
