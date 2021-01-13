@@ -41,18 +41,12 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes, activations,
     sess.run(tf.global_variables_initializer())
     for i in range(iterations):
         if i == 0 or i % 100 == 0:
-            train_pred = sess.run(y_pred, feed_dict={x: X_train})
-            train_loss = sess.run(loss, feed_dict={y_pred: train_pred,
-                                                   y: Y_train})
-            train_acc = sess.run(accuracy, feed_dict={y: Y_train,
-                                                      y_pred: train_pred})
-            valid_pred = sess.run(y_pred, feed_dict={x: X_valid})
-            valid_loss = sess.run(loss, feed_dict={y_pred: valid_pred,
-                                                   y: Y_valid})
-            valid_acc = sess.run(accuracy, feed_dict={y: Y_valid,
-                                                      y_pred: valid_pred})
-
+            train_loss = sess.run(loss, feed_dict={x: X_train, y: Y_train})
+            train_acc = sess.run(accuracy, feed_dict={y: Y_train, x: X_train})
+            valid_loss = sess.run(loss, feed_dict={x: X_valid, y: Y_valid})
+            valid_acc = sess.run(accuracy, feed_dict={y: Y_valid, x: X_valid})
             print("After {} iterations:".format(i))
+
             print("\tTraining Cost: {}".format(train_loss))
             print("\tTraining Accuracy: {}".format(train_acc))
             print("\tValidation Cost: {}".format(valid_loss))
@@ -60,20 +54,14 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes, activations,
 
         sess.run(train_op, feed_dict={x: X_train, y: Y_train})
 
-    train_pred = sess.run(y_pred, feed_dict={x: X_train})
-    train_loss = sess.run(loss, feed_dict={y_pred: train_pred,
-                                           y: Y_train})
-    training_acc = sess.run(accuracy, feed_dict={y: Y_train,
-                                                 y_pred: train_pred})
-    valid_pred = sess.run(y_pred, feed_dict={x: X_valid})
-    valid_loss = sess.run(loss, feed_dict={y_pred: valid_pred,
-                                           y: Y_valid})
-    valid_acc = sess.run(accuracy, feed_dict={y: Y_valid,
-                                              y_pred: valid_pred})
+    train_loss = sess.run(loss, feed_dict={x: X_train, y: Y_train})
+    train_acc = sess.run(accuracy, feed_dict={y: Y_train, x: X_train})
+    valid_loss = sess.run(loss, feed_dict={x: X_valid, y: Y_valid})
+    valid_acc = sess.run(accuracy, feed_dict={y: Y_valid, x: X_valid})
 
     print("After {} iterations:".format(iterations))
-    print("\tTraining Cost: {}".format(training_loss))
-    print("\tTraining Accuracy: {}".format(training_acc))
+    print("\tTraining Cost: {}".format(train_loss))
+    print("\tTraining Accuracy: {}".format(train_acc))
     print("\tValidation Cost: {}".format(valid_loss))
     print("\tValidation Accuracy: {}".format(valid_acc))
 
