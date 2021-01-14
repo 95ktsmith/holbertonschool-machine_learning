@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 """ Adam optimization """
-import numpy as np
 
 
 def update_variables_Adam(alpha, beta1, beta2, epsilon, var, grad, v, s, t):
