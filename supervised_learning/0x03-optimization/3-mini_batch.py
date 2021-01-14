@@ -53,7 +53,7 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
             print("\tValidation Accuracy: {}".format(epoch_valid_acc))
 
             X_shuffled, Y_shuffled = shuffle_data(X_train, Y_train)
-            for batch in range(int(X_train.shape[0] / batch_size + 1)):
+            for batch in range(int(X_train.shape[0] / batch_size + 2)):
                 if batch > 0 and batch % 100 == 0:
                     step_cost = sess.run(loss, feed_dict=mini_dict)
                     step_acc = sess.run(accuracy, feed_dict=mini_dict)
