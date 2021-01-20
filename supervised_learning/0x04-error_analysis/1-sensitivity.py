@@ -12,6 +12,7 @@ def sensitivity(confusion):
         Returns: a numpy.ndarray of shape (classes,) containing the sensitivity
             of each class
     """
-    sens = np.array([confusion[i][i] for i in range(confusion.shape[0])])
-    sens /= np.sum(confusion, axis=1)
+    sens = np.zeros(confusion.shape[0])
+    for i in range(confusion.shape[0]):
+        sens[i] = confusion[i][i] / sum(confusion[i])
     return sens
