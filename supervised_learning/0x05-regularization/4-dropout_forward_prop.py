@@ -28,7 +28,7 @@ def dropout_forward_prop(X, weights, L, keep_prob):
             d = np.random.rand(A.shape[0], A.shape[1]) < keep_prob
             d = np.where(d, 1, 0)
             A *= d / keep_prob
-            activations["d" + str(i)] = d
+            activations["D" + str(i)] = d
         else:
             A = np.exp(Y) / np.sum(np.exp(Y), axis=0, keepdims=True)
         activations["A" + str(i)] = A
