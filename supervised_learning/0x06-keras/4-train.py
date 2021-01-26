@@ -28,4 +28,4 @@ def train_model(network, data, labels, batch_size, epochs, verbose=True,
         verbose=verbose,
         shuffle=shuffle
     )
-    return history.history
+    return history
