@@ -24,7 +24,7 @@ def convolve_grayscale_valid(images, kernel):
     ch = ih - kh + 1
     cw = iw - kw + 1
     convolved = np.zeros((images.shape[0], ch, cw))
-    print(kernel[None, :, :])
+
     for row in range(ch):
         for col in range(cw):
             masked = images[:, row:row + kh, col:col + kw] * kernel[None, :, :]
