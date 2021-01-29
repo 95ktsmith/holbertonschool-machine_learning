@@ -40,7 +40,7 @@ def pool(images, kernel_shape, stride, mode='max'):
 
     for row in range(ch):
         for col in range(cw):
-            if mode == "average":
+            if mode == "avg":
                 pooled = np.average(images[:, row*sh:row*sh + kh,
                                     col*sw:col*sw + kw, :],
                                     axis=(1, 2))
