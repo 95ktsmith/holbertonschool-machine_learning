@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """ Convolution with multiple kernels """
 import numpy as np
-from math import floor
 
 
 def convolve(images, kernels, padding='same', stride=(1, 1)):
@@ -40,16 +39,16 @@ def convolve(images, kernels, padding='same', stride=(1, 1)):
         ph = 0
         pw = 0
     else:  # padding == "same"
-        ph = floor((kh - 1) / 2)
-        pw = floor((kw - 1) / 2)
+        ph = int(kh / 2)
+        pw = int(kw / 2)
 
     padded = np.pad(images,
                     ((0, 0), (ph, ph), (pw, pw), (0, 0)),
                     'constant')
     sh = stride[0]
     sw = stride[1]
-    ch = floor((padded.shape[1] - kh + 1) / sh)
-    cw = floor((padded.shape[2] - kw + 1) / sw)
+    ch = int(((padded.shape[1] - kh) / sh) + 1)
+    cw = int(((padded.shape[2] - kw) / sw) + 1)
     convolved = np.zeros((images.shape[0], ch, cw, kernels.shape[3]))
 
     for k in range(kernels.shape[3]):
