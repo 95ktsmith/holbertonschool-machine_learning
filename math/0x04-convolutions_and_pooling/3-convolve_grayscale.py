@@ -52,10 +52,6 @@ def convolve_grayscale(images, kernel, padding='same', stride=(1, 1)):
 
     for row in range(ch):
         for col in range(cw):
-            if row * sh + kh >= padded.shape[1]:
-                continue
-            if col * sw + kw >= padded.shape[2]:
-                continue
             masked = padded[:, row*sh:row*sh + kh, col*sw:col*sw + kw] *\
                 kernel[None, :, :]
             convolved[:, row, col] = np.sum(masked, axis=(1, 2))
