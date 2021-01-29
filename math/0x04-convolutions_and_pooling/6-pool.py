@@ -34,8 +34,8 @@ def pool(images, kernel_shape, stride, mode='max'):
     sh = stride[0]
     sw = stride[1]
 
-    ch = int(((padded.shape[1] - kh) / sh) + 1)
-    cw = int(((padded.shape[2] - kw) / sw) + 1)
+    ch = int(((images.shape[1] - kh) / sh) + 1)
+    cw = int(((images.shape[2] - kw) / sw) + 1)
     convolved = np.zeros((images.shape[0], ch, cw, images.shape[3]))
 
     for row in range(ch):
