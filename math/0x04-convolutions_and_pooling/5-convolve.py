@@ -54,10 +54,6 @@ def convolve(images, kernels, padding='same', stride=(1, 1)):
     for k in range(kernels.shape[3]):
         for row in range(ch):
             for col in range(cw):
-                if row * sh + kh >= padded.shape[1]:
-                    continue
-                if col * sw + kw >= padded.shape[2]:
-                    continue
                 mask = padded[:, row*sh:row*sh + kh, col*sw:col*sw + kw, :] *\
                     kernels[None, :, :, :, k]
                 convolved[:, row, col, k] = np.sum(mask, axis=(1, 2, 3))

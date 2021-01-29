@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """ Pooling """
 import numpy as np
-from math import floor
 
 
 def pool(images, kernel_shape, stride, mode='max'):
@@ -35,16 +34,12 @@ def pool(images, kernel_shape, stride, mode='max'):
     sh = stride[0]
     sw = stride[1]
 
-    ch = floor((ih - kh + 1) / sh)
-    cw = floor((iw - kw + 1) / sw)
+    ch = int(((padded.shape[1] - kh) / sh) + 1)
+    cw = int(((padded.shape[2] - kw) / sw) + 1)
     convolved = np.zeros((images.shape[0], ch, cw, images.shape[3]))
 
     for row in range(ch):
         for col in range(cw):
-            if row * sh + kh >= ih:
-                continue
-            if col * sw + kw >= iw:
-                continue
             if mode == "average":
                 pooled = np.average(images[:, row*sh:row*sh + kh,
                                     col*sw:col*sw + kw, :],
