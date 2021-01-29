@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """ Convolve with stride """
 import numpy as np
-from math import floor
 
 
 def convolve_grayscale(images, kernel, padding='same', stride=(1, 1)):
@@ -39,8 +38,8 @@ def convolve_grayscale(images, kernel, padding='same', stride=(1, 1)):
         ph = 0
         pw = 0
     else:  # padding == "same"
-        ph = floor((kh - 1) / 2)
-        pw = floor((kw - 1) / 2)
+        ph = int(kh / 2)
+        pw = int(kw / 2)
 
     padded = np.pad(images,
                     ((0, 0), (ph, ph), (pw, pw)),
