@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """ Same convolution """
 import numpy as np
-from math import floor
+from math import ceil, floor
 
 
 def convolve_grayscale_same(images, kernel):
