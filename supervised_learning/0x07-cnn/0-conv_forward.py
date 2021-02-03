@@ -33,16 +33,11 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
     sh = stride[0]
     sw = stride[1]
 
-    if type(padding) is tuple:
-        ph = padding[0]
-        pw = padding[1]
-        ch = int(((h_prev + (2 * ph) - kh) / sh) + 1)
-        cw = int(((w_prev + (2 * pw) - kw) / sw) + 1)
-    elif padding == "valid":
+    if padding == "valid":
         ph = 0
         pw = 0
-        ch = int(((h_prev + (2 * ph) - kh) / sh) + 1)
-        cw = int(((w_prev + (2 * pw) - kw) / sw) + 1)
+        ch = int((h_prev + (2 * ph) - kh) / sh) + 1
+        cw = int((w_prev + (2 * pw) - kw) / sw) + 1
     else:  # padding == "same"
         ph = int(kh / 2)
         pw = int(kw / 2)
@@ -60,5 +55,6 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
             for col in range(cw):
                 mask = padded[:, row*sh:row*sh + kh, col*sw:col*sw + kw, :] *\
                     W[None, :, :, :, channel]
-                convolved[:, row, col, channel] = np.sum(mask, axis=(1, 2, 3))
-    return activation(convolved)
+                out = np.sum(mask, axis=(1, 2, 3)) + b[:, :, :, channel]
+                convolved[:, row, col, channel] = activation(out)
+    return convolved
