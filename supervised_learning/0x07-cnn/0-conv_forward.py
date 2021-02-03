@@ -30,25 +30,29 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
     """
     m, h_prev, w_prev, c_prev = A_prev.shape
     kh, kw, c_prev, c_new = W.shape
+    sh = stride[0]
+    sw = stride[1]
 
     if type(padding) is tuple:
         ph = padding[0]
         pw = padding[1]
+        ch = int(((h_prev + (2 * ph) - kh) / sh) + 1)
+        cw = int(((w_prev + (2 * pw) - kw) / sw) + 1)
     elif padding == "valid":
         ph = 0
         pw = 0
+        ch = int(((h_prev + (2 * ph) - kh) / sh) + 1)
+        cw = int(((w_prev + (2 * pw) - kw) / sw) + 1)
     else:  # padding == "same"
         ph = int(kh / 2)
         pw = int(kw / 2)
+        ch = h_prev
+        cw = w_prev
 
     padded = np.pad(A_prev,
                     ((0, 0), (ph, ph), (pw, pw), (0, 0)),
                     'constant',
                     constant_values=0)
-    sh = stride[0]
-    sw = stride[1]
-    ch = int(((padded.shape[1] - kh) / sh) + 1)
-    cw = int(((padded.shape[2] - kw) / sw) + 1)
     convolved = np.zeros((m, ch, cw, c_new))
 
     for channel in range(c_new):
