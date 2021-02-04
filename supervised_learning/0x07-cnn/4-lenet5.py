@@ -51,7 +51,8 @@ def lenet5(x, y):
     l6 = tf.layers.Dense(units=84,
                          activation=tf.nn.relu,
                          kernel_initializer=k_init)
-    l7 = tf.layers.Dense(units=10)
+    l7 = tf.layers.Dense(units=10,
+                         kernel_initializer=k_init)
 
     l1_out = l1(x)
     l2_out = l2(l1_out)
