@@ -23,4 +23,4 @@ def transition_layer(X, nb_filters, compression):
         kernel_initializer=K.initializers.he_normal()
     )(relu)
     pool = K.layers.AveragePooling2D()(conv)
-    return pool, pool.shape[-1]
+    return pool, int(nb_filters * compression)
