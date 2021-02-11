@@ -19,14 +19,12 @@ def inception_block(A_prev, filters):
             pooling
     Returns: the concatenated output of the inception block
     """
-    init = K.initializers.he_normal()
     F1, F3R, F3, F5R, F5, FPP = filters
 
     F3_R = K.layers.Conv2D(
         filters=F3R,
         kernel_size=1,
         padding="same",
-        kernel_initializer=init,
         activation="relu"
     )(A_prev)
 
@@ -34,7 +32,6 @@ def inception_block(A_prev, filters):
         filters=F5R,
         kernel_size=1,
         padding="same",
-        kernel_initializer=init,
         activation="relu"
     )(A_prev)
 
@@ -48,7 +45,6 @@ def inception_block(A_prev, filters):
         filters=F3,
         kernel_size=3,
         padding="same",
-        kernel_initializer=init,
         activation="relu"
     )(F3_R)
 
@@ -56,7 +52,6 @@ def inception_block(A_prev, filters):
         filters=F1,
         kernel_size=1,
         padding="same",
-        kernel_initializer=init,
         activation="relu"
     )(A_prev)
 
@@ -64,7 +59,6 @@ def inception_block(A_prev, filters):
         filters=F5,
         kernel_size=5,
         padding="same",
-        kernel_initializer=init,
         activation="relu"
     )(F5_R)
 
@@ -72,7 +66,6 @@ def inception_block(A_prev, filters):
         filters=FPP,
         kernel_size=1,
         padding="same",
-        kernel_initializer=init,
         activation="relu"
     )(F3_P)
 
