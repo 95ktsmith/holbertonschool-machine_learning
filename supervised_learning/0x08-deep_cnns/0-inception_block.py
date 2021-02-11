@@ -21,24 +21,18 @@ def inception_block(A_prev, filters):
     """
     F1, F3R, F3, F5R, F5, FPP = filters
 
+    F1_C = K.layers.Conv2D(
+        filters=F1,
+        kernel_size=1,
+        padding="same",
+        activation="relu"
+    )(A_prev)
+
     F3_R = K.layers.Conv2D(
         filters=F3R,
         kernel_size=1,
         padding="same",
         activation="relu"
-    )(A_prev)
-
-    F5_R = K.layers.Conv2D(
-        filters=F5R,
-        kernel_size=1,
-        padding="same",
-        activation="relu"
-    )(A_prev)
-
-    F3_P = K.layers.MaxPooling2D(
-        pool_size=3,
-        strides=1,
-        padding="same"
     )(A_prev)
 
     F3_C = K.layers.Conv2D(
@@ -48,8 +42,8 @@ def inception_block(A_prev, filters):
         activation="relu"
     )(F3_R)
 
-    F1_C = K.layers.Conv2D(
-        filters=F1,
+    F5_R = K.layers.Conv2D(
+        filters=F5R,
         kernel_size=1,
         padding="same",
         activation="relu"
@@ -61,6 +55,12 @@ def inception_block(A_prev, filters):
         padding="same",
         activation="relu"
     )(F5_R)
+
+    F3_P = K.layers.MaxPooling2D(
+        pool_size=3,
+        strides=1,
+        padding="same"
+    )(A_prev)
 
     FP_R = K.layers.Conv2D(
         filters=FPP,
