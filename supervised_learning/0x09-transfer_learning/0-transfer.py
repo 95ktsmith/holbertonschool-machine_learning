@@ -31,20 +31,22 @@ if __name__ == "__main__":
     densenet_model = K.applications.DenseNet121(
         include_top=False,
         weights='imagenet',
-        input_shape=(32, 32, 3)
+        input_shape=(224, 224, 3)
     )
+
+    # Freeze its layers to use model just as a feature extractor
+    densenet_model.trainable = False
 
     # Build full model, including new fully connected layers after
     # the densenet blocks
     model = K.Sequential()
     model.add(K.layers.InputLayer(input_shape=(32, 32, 3)))
+    model.add(K.layers.Lambda(
+        lambda x: K.backend.resize_images(x, 7, 7, "channels_last",
+                                          interpolation="bilinear")
+    ))
     model.add(densenet_model)
     model.add(K.layers.Flatten())
-    model.add(K.layers.Dense(
-        units=1024,
-        activation='relu',
-    ))
-    model.add(K.layers.Dropout(rate=0.25))
     model.add(K.layers.Dense(
         units=512,
         activation='relu',
@@ -65,21 +67,23 @@ if __name__ == "__main__":
         activation='softmax'
     ))
 
+    # Compile and train, saving best performing checkpoint
     model.compile(
         optimizer="Adam",
         loss="categorical_crossentropy",
         metrics=["accuracy"]
     )
-
-    # Train
     history = model.fit(
       x=train_X,
       y=train_Y,
-      epochs=10,
+      batch_size=128,
+      epochs=5,
       verbose=True,
-      batch_size=256,
-      validation_data=(valid_X, valid_Y)
+      validation_data=(valid_X, valid_Y),
+      callbacks=[
+                 K.callbacks.ModelCheckpoint(
+                     "cifar10.h5",
+                     save_best_only=True
+                 )
+      ]
     )
-
-    # Save model to file
-    model.save("cifar10.h5")
