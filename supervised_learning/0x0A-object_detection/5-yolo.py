@@ -283,7 +283,7 @@ class Yolo:
 
         for image in images:
             original_height, original_width = image.shape[:2]
-            image_shapes.append(np.array([original_height, original_height]))
+            image_shapes.append([original_height, original_height])
 
             resized = cv2.resize(
                 image,
