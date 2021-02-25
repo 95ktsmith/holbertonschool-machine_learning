@@ -24,6 +24,7 @@ class Yolo:
             2 => [anchor_box_width, anchor_box_height]
         """
         self.model = K.models.load_model(model_path)
+        self.class_names = []
         with open(classes_path, 'r') as f:
             self.class_names = f.read().split('\n')
         self.class_t = class_t
