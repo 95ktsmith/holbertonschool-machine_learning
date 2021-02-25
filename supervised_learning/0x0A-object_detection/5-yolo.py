@@ -290,7 +290,7 @@ class Yolo:
                 (input_w, input_h),
                 interpolation=cv2.INTER_CUBIC
             )
-            normalized = resized / 256
+            normalized = resized / 255
             pimages.append(normalized)
 
         pimages = np.array(pimages)
