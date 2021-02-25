@@ -26,7 +26,8 @@ class Yolo:
         self.model = K.models.load_model(model_path)
         self.class_names = []
         with open(classes_path, 'r') as f:
-            self.class_names = f.read().split('\n')
+            for line in f:
+                self.class_names.append(line.strip())
         self.class_t = class_t
         self.nms_t = nms_t
         self.anchors = anchors
