@@ -287,7 +287,7 @@ class Yolo:
 
             resized = cv2.resize(
                 image,
-                (input_h, input_w),
+                (input_w, input_h),
                 interpolation=cv2.INTER_CUBIC
             )
             normalized = resized / 255
