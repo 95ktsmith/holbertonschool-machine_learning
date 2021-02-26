@@ -223,13 +223,10 @@ class Yolo:
                         ox2 = px2 if px2 < bx2 else bx2
                         oy2 = py2 if py2 < by2 else by2
 
-                        # Ignore if overlap isn't valid
-                        if ox2 - ox1 <= 0 or oy2 - oy1 <= 0:
-                            continue
-
                         # Calculate overlap area and IoU
+                        b_area = (bx2 - bx1) * (by2 - by1)
                         o_area = (ox2 - ox1) * (oy2 - oy1)
-                        iou = o_area / p_area
+                        iou = o_area / (p_area + b_area - o_area)
 
                         # Remove box if IoU is over threshold
                         if iou > self.nms_t:
