@@ -90,5 +90,5 @@ def cofactor(matrix):
                 cofactorMatrix[row].append(minorMatrix[row][col])
             else:
                 cofactorMatrix[row].append(minorMatrix[row][col] * -1)
-            
+
     return cofactorMatrix
