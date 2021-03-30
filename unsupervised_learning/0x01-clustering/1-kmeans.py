@@ -18,42 +18,46 @@ def kmeans(X, k, iterations=1000):
         clss is a numpy.ndarray of shape (n, ) containing the index of the
             cluster in C that each data point belongs to
     """
-    try:
-        maxes = np.amax(X, axis=0)
-        mins = np.amin(X, axis=0)
-        C = np.random.uniform(mins, maxes, (k, X.shape[1]))
-        C_prev = np.ones(C.shape)
-        clss = np.negative(np.ones((X.shape[0])))
-
-        i = 0
-        while i < iterations and np.any(C != C_prev):
-            i += 1
-            # Save copy of C before iteration
-            C_prev = np.copy(C)
-
-            # Assign data points to centroids
-            points = np.repeat(X, k, axis=0)
-            points = points.reshape((X.shape[0], k, X.shape[1]))
-            dist = np.linalg.norm(points[:] - C, axis=2)
-            clss = np.argmin(dist, axis=1)
-
-            # Reassign centroids if no related data points
-            replace = np.isin(np.array(range(len(C))), clss)
-            replace = np.argwhere(replace == False)
-            if len(replace != 0):
-                C[replace[0]] = np.random.uniform(
-                    mins,
-                    maxes,
-                    (len(replace[0]), X.shape[1])
-                )
-
-            # Move centroids to means of clusters
-            for centroid in range(len(C)):
-                points = np.argwhere(clss == centroid)
-                if len(points) != 0:
-                    points = points.reshape((points.shape[0]))
-                    C[centroid] = np.mean(X[points], axis=0)
-
-        return C, clss
-    except Exception as e:
+    if type(X) is not np.ndarray or len(X.shape) != 2:
         return None, None
+    n, d = X.shape
+    if type(k) is not int or k < 1 or k > n:
+        return None, None
+    if type(iterations) is not int or iterations < 1:
+        return None, None
+
+    maxes = np.amax(X, axis=0)
+    mins = np.amin(X, axis=0)
+    C = np.random.uniform(mins, maxes, (k, d))
+    C_prev = np.ones(C.shape)
+    clss = np.negative(np.ones((n)))
+
+    i = 0
+    while i < iterations and np.any(C != C_prev):
+        i += 1
+        # Save copy of C before iteration
+        C_prev = np.copy(C)
+
+        # Assign data points to centroids
+        points = np.repeat(X, k, axis=0).reshape((n, k, d))
+        dist = np.linalg.norm(points[:] - C, axis=2)
+        clss = np.argmin(dist, axis=1)
+
+        # Reassign centroids if no related data points
+        replace = np.isin(np.array(range(len(C))), clss)
+        replace = np.argwhere(replace == False)
+        if len(replace != 0):
+            C[replace[0]] = np.random.uniform(
+                mins,
+                maxes,
+                (len(replace[0]), d)
+            )
+
+        # Move centroids to means of clusters
+        for centroid in range(len(C)):
+            points = np.argwhere(clss == centroid)
+            if len(points) != 0:
+                points = points.reshape((points.shape[0]))
+                C[centroid] = np.mean(X[points], axis=0)
+
+    return C, clss
