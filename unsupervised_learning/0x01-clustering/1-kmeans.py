@@ -32,7 +32,7 @@ def kmeans(X, k, iterations=1000):
             C_prev = np.copy(C)
 
             # Assign data points to centroids
-            points = np.repeat(X, 5, axis=0)
+            points = np.repeat(X, k, axis=0)
             points = points.reshape((X.shape[0], k, X.shape[1]))
             dist = np.linalg.norm(points[:] - C, axis=2)
             clss = np.argmin(dist, axis=1)
@@ -44,7 +44,7 @@ def kmeans(X, k, iterations=1000):
                 C[replace[0]] = np.random.uniform(
                     mins,
                     maxes,
-                    (len(replace[0]), 2)
+                    (len(replace[0]), X.shape[1])
                 )
 
             # Move centroids to means of clusters
