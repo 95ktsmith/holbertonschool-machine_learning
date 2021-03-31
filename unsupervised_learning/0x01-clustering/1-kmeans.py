@@ -51,6 +51,6 @@ def kmeans(X, k, iterations=1000):
                 points = points.reshape((points.shape[0]))
                 C[centroid] = np.mean(X[points], axis=0)
             else:
-                C[centroid] = np.random.uniform(mins, maxes, (1, d))
+                C[centroid] = np.random.uniform(mins, maxes, d)
 
     return C, clss
