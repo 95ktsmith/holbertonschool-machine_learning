@@ -16,7 +16,7 @@ def variance(X, C):
         return None
     n, d = X.shape
     k, dk = C.shape
-    if k > d or d != dk:
+    if k > n or d != dk:
         return None
 
     points = np.repeat(X, k, axis=0).reshape((n, k, d))
