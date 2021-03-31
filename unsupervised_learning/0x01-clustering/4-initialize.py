@@ -20,7 +20,7 @@ def initialize(X, k):
     if type(X) is not np.ndarray or len(X.shape) != 2:
         return None, None, None
     n, d = X.shape
-    if type(k) is not int or k < 1 or k => n:
+    if type(k) is not int or k < 1 or k >= n:
         return None, None, None
     pi = np.ones((k)) / k
     m, _ = kmeans(X, k)
