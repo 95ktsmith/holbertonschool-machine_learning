@@ -23,7 +23,7 @@ def gmm(X, k):
     pi = gmm.weights_
     m = gmm.means_
     S = gmm.covariances_
-    clss = gmm.fit_predict(X)
+    clss = gmm.predict(X)
     bic = gmm.bic(X)
 
     return pi, m, S, clss, bic
