@@ -43,21 +43,14 @@ def kmeans(X, k, iterations=1000):
         dist = np.linalg.norm(points[:] - C, axis=2)
         clss = np.argmin(dist, axis=1)
 
-        # Reassign centroids if no related data points
-        replace = np.isin(np.array(range(len(C))), clss)
-        replace = np.argwhere(replace == False)
-        if len(replace != 0):
-            C[replace[0]] = np.random.uniform(
-                mins,
-                maxes,
-                (len(replace[0]), d)
-            )
-
-        # Move centroids to means of clusters
+        # Move centroids to means of clusters, or reinitialize if they have
+        # no related data points
         for centroid in range(len(C)):
             points = np.argwhere(clss == centroid)
             if len(points) != 0:
                 points = points.reshape((points.shape[0]))
                 C[centroid] = np.mean(X[points], axis=0)
+            else:
+                C[centroid] = np.random.uniform(mins, maxes, (1, d))
 
     return C, clss
