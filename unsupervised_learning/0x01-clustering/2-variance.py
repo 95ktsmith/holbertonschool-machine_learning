@@ -14,9 +14,11 @@ def variance(X, C):
         return None
     if type(C) is not np.ndarray or len(C.shape) != 2:
         return None
-
     n, d = X.shape
     k, _ = C.shape
+    if k > n:
+        return None
+
     points = np.repeat(X, k, axis=0).reshape((n, k, d))
     distances = ((points - C) ** 2).sum(axis=2)
     min_distance = np.amin(distances, axis=1)
