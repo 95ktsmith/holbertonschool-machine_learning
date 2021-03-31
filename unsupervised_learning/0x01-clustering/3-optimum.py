@@ -20,24 +20,23 @@ def optimum_k(X, kmin=1, kmax=None, iterations=1000):
         d_vars is a list of the difference in variance from smallest cluster
             size for each cluster size
     """
+    if type(X) is not np.ndarray or len(X.shape) != 2:
+        return None, None
     if type(kmin) is not int or kmin < 1:
         return None, None
-    if (kmax is not None and type(kmax) is not int) or kmax < 2:
+    if kmax is None:
+        kmax = X.shape[0]
+    if type(kmax) is not int or kmax < kmin:
+        return None, None
+    if type(iterations) is not int or iterations < 1:
         return None, None
 
     results = []
     d_vars = []
-    if kmax is None:
-        kmax = 5
 
     for k in range(kmin, kmax + 1):
         C, clss = kmeans(X, k, iterations)
-        if C is None:
-            return None, None
-
         var = variance(X, C)
-        if var is None:
-            return None, None
 
         if k == kmin:
             smallest = var
