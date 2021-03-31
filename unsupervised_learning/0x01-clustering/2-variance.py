@@ -15,8 +15,8 @@ def variance(X, C):
     if type(C) is not np.ndarray or len(C.shape) != 2:
         return None
     n, d = X.shape
-    k, _ = C.shape
-    if k > n:
+    k, dk = C.shape
+    if k > d or d != dk:
         return None
 
     points = np.repeat(X, k, axis=0).reshape((n, k, d))
