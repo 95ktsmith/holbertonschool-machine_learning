@@ -25,6 +25,6 @@ def initialize(X, k):
     pi = np.ones((k)) / k
     m, _ = kmeans(X, k)
     S = np.ones((k, d, d))
-    S[:, :] = np.identity(2)
+    S[:, :] = np.identity(d)
 
     return pi, m, S
