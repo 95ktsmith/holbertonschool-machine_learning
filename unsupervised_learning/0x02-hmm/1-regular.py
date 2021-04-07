@@ -20,4 +20,4 @@ def regular(P):
     while not np.array_equal(S, Sprev):
         Sprev = S
         S = S @ P
-    return S
+    return np.asarray([S])
