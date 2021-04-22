@@ -64,9 +64,9 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
             pred
         ) * input_dims
         kl_loss = 1 + sigma - keras.backend.square(mu)-keras.backend.exp(sigma)
+        kl_loss = keras.backend.sum(kl_loss, axis=-1)
         kl_loss *= -0.5
-        kl_loss = keras.backend.mean(keras.backend.sum(kl_loss, axis=-1))
-        return reconstruction_loss + kl_loss
+        return keras.backend.mean(reconstruction_loss + kl_loss)
 
     outputs = decoder(encoder(enc_input)[2])
     auto = keras.Model(inputs=enc_input, outputs=outputs)
