@@ -3,17 +3,6 @@
 import tensorflow.keras as keras
 
 
-def sample_z(args):
-    """
-    Sampling function
-    """
-    mu, sigma = args
-    batch = keras.backend.shape(mu)[0]
-    dim = keras.backend.int_shape(mu)[1]
-    eps = keras.backend.random_normal(shape=(batch, dim))
-    return mu + keras.backend.exp(sigma / 2) * eps
-
-
 def autoencoder(input_dims, hidden_layers, latent_dims):
     """
     Creates a variational autoencoder
@@ -35,6 +24,15 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
         )
     mu = keras.layers.Dense(units=latent_dims)(enc)
     sigma = keras.layers.Dense(units=latent_dims)(enc)
+
+    def sample_z(args):
+        """ Sampling function """
+        mu, sigma = args
+        batch = keras.backend.shape(mu)[0]
+        dim = keras.backend.int_shape(mu)[1]
+        eps = keras.backend.random_normal(shape=(batch, dim))
+        return mu + keras.backend.exp(sigma / 2) * eps
+
     z = keras.layers.Lambda(sample_z)([mu, sigma])
     encoder = keras.Model(inputs=enc_input, outputs=[mu, sigma, z])
 
@@ -74,5 +72,4 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
         optimizer='adam',
         loss=kl_reconstruction_loss
     )
-
     return encoder, decoder, auto
