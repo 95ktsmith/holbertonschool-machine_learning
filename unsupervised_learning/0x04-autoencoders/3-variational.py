@@ -21,7 +21,7 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
         enc = keras.layers.Dense(
             units=hidden_layers[i],
             activation='relu'
-        )
+        )(enc)
     mu = keras.layers.Dense(units=latent_dims)(enc)
     sigma = keras.layers.Dense(units=latent_dims)(enc)
 
