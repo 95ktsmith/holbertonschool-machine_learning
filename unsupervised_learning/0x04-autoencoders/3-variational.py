@@ -5,7 +5,7 @@ import tensorflow.keras as keras
 
 def sample_z(args):
     """
-    Sampling with reparameterization
+    Sampling function
     """
     mu, sigma = args
     batch = keras.backend.shape(mu)[0]
@@ -36,7 +36,7 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
     mu = keras.layers.Dense(units=latent_dims)(enc)
     sigma = keras.layers.Dense(units=latent_dims)(enc)
     z = keras.layers.Lambda(sample_z)([mu, sigma])
-    encoder = keras.Model(inputs=enc_input, outputs=[z, mu, sigma])
+    encoder = keras.Model(inputs=enc_input, outputs=[mu, sigma, z])
 
     # Decoder
     dec_input = keras.Input(shape=(latent_dims,))
@@ -68,7 +68,7 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
         kl_loss = keras.backend.mean(keras.backend.sum(kl_loss, axis=-1))
         return reconstruction_loss + kl_loss
 
-    outputs = decoder(encoder(enc_input)[0])
+    outputs = decoder(encoder(enc_input)[2])
     auto = keras.Model(inputs=enc_input, outputs=outputs)
     auto.compile(
         optimizer='adam',
