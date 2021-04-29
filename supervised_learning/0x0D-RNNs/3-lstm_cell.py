@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 """ Long Short Term Memory Cell """
 import numpy as np
 
