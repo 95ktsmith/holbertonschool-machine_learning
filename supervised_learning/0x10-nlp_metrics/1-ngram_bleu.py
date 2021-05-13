@@ -12,7 +12,7 @@ def ngram_bleu(references, sentence, n):
     n: size of the n-gram to use for evaluation
     Returns: The unigram BLEU score
     """
-    counts = []
+    counts = {}
     sen_grams = []
     for i in range(len(sentence) - (n - 1)):
         sen_grams.append(sentence[i:i+n])
@@ -25,12 +25,13 @@ def ngram_bleu(references, sentence, n):
 
     for gram in sen_grams:
         max_credits = 0
-        counts.append(0)
+        counts[str(gram)] = 0
         for reference in ref_grams:
             credits = reference.count(gram)
             if credits > max_credits:
                 max_credits = credits
-            counts[-1] = min(max_credits, max(credits, counts[-1]))
+            counts[str(gram)] = min(max_credits,
+                                max(credits, counts[str(gram)]))
 
     # Length of shortest reference sentence
     r = min([len(ref) for ref in references])
@@ -41,4 +42,4 @@ def ngram_bleu(references, sentence, n):
     else:
         brevity_penalty = 1
 
-    return sum(counts) * brevity_penalty / len(sen_grams)
+    return sum(counts.values()) * brevity_penalty / len(sen_grams)

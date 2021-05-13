@@ -11,15 +11,15 @@ def uni_bleu(references, sentence):
     sentence: List containing the model proposed sentence
     Returns: The unigram BLEU score
     """
-    counts = []
+    counts = {}
     for word in sentence:
         max_credits = 0
-        counts.append(0)
+        counts[word] = 0
         for reference in references:
             credits = reference.count(word)
             if credits > max_credits:
                 max_credits = credits
-            counts[-1] = min(max_credits, max(credits, counts[-1]))
+            counts[word] = min(max_credits, max(credits, counts[word]))
 
     # Length of shortest reference sentence
     r = min([len(ref) for ref in references])
@@ -29,4 +29,4 @@ def uni_bleu(references, sentence):
         brevity_penalty = np.exp(1 - (r / c))
     else:
         brevity_penalty = 1
-    return sum(counts) * brevity_penalty / c
+    return sum(counts.values()) * brevity_penalty / c
