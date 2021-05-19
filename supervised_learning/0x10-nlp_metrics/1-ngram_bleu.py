@@ -31,7 +31,7 @@ def ngram_bleu(references, sentence, n):
             if credits > max_credits:
                 max_credits = credits
             counts[str(gram)] = min(max_credits,
-                                max(credits, counts[str(gram)]))
+                                    max(credits, counts[str(gram)]))
 
     # Length of shortest reference sentence
     r = min([len(ref) for ref in references])
