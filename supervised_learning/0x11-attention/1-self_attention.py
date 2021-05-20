@@ -12,9 +12,12 @@ class SelfAttention(tf.keras.layers.Layer):
         units: an integer representing the number of hidden units in the
                alignment model
         """
-        super(SelfAttention, self).__init__()
+        super().__init__()
+        # Layer for previous decoder state
         self.W = tf.layers.Dense(units)
+        # Layer for encoder hidden states
         self.U = tf.layers.Dense(units)
+        # Layer for tanh of the sum of outputs of W and U
         self.V = tf.layers.Dense(1)
 
     def call(self, s_prev, hidden_states):
@@ -37,6 +40,7 @@ class SelfAttention(tf.keras.layers.Layer):
         weights = tf.nn.softmax(A, axis=1)
 
         # Context
-        context = tf.reduce_sum(weights * hidden_states, axis=1)
+        context = weights * hidden_states
+        context = tf.reduce_sum(context, axis=1)
 
         return context, weights
