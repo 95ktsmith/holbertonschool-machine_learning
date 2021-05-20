@@ -15,7 +15,7 @@ class RNNEncoder(tf.keras.layers.Layer):
         units: integer representing the number of hidden units in the RNN cell
         batch: integer representing the batch size
         """
-        super().__init__()
+        super(RNNEncoder, self).__init__()
         self.batch = batch
         self.units = units
         self.embedding = tf.keras.layers.Embedding(
