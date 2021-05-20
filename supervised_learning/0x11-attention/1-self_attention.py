@@ -33,7 +33,7 @@ class SelfAttention(tf.keras.layers.Layer):
                           contains the attention weights
         """
         # Reshape previous state
-        S = tf.expand_dims(s_prev, axis=1)
+        S = tf.expand_dims(s_prev, 1)
 
         # Attention weights
         A = self.V(tf.nn.tanh(self.W(S) + self.U(hidden_states)))
