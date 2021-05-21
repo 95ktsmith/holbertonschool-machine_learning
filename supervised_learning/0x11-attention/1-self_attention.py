@@ -14,11 +14,11 @@ class SelfAttention(tf.keras.layers.Layer):
         """
         super(SelfAttention, self).__init__()
         # Layer for previous decoder state
-        self.W = tf.layers.Dense(units)
+        self.W = tf.keras.layers.Dense(units)
         # Layer for encoder hidden states
-        self.U = tf.layers.Dense(units)
+        self.U = tf.keras.layers.Dense(units)
         # Layer for tanh of the sum of outputs of W and U
-        self.V = tf.layers.Dense(1)
+        self.V = tf.keras.layers.Dense(1)
 
     def call(self, s_prev, hidden_states):
         """
