@@ -56,7 +56,7 @@ class MultiHeadAttention(tf.keras.layers.Layer):
         # Split between heads
         Q = self.split_heads(Q, batch_size)
         K = self.split_heads(K, batch_size)
-        V = self.split_heads(K, batch_size)
+        V = self.split_heads(V, batch_size)
 
         # Scaled Dot Product Attention
         attention, weights = sdp_attention(Q, K, V, mask)
