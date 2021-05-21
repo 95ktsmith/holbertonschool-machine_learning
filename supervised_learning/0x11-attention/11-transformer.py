@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+""" Transformer """
 import tensorflow as tf
 Encoder = __import__('9-transformer_encoder').Encoder
 Decoder = __import__('10-transformer_decoder').Decoder
