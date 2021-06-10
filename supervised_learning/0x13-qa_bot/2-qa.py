@@ -53,6 +53,7 @@ def question_answer(question, reference):
 
     return answer
 
+
 def answer_loop(reference):
     """
     Answers questions from a reference text
