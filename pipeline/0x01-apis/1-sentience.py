@@ -23,10 +23,6 @@ def sentientPlanets():
                         homeWorld = requests.get(person['homeworld']).json()
                         if homeWorld['name'] not in planets:
                             planets.append(homeWorld['name'])
-                            if homeWorld['name'] == 'Tatooine':
-                                print(person['name'])
-                                print(speciesData['name'])
-                                return []
 
         url = data['next']
 
