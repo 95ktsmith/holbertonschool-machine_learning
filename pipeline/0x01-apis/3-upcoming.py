@@ -5,7 +5,15 @@ import requests
 
 if __name__ == "__main__":
 
-    data = requests.get("https://api.spacexdata.com/v5/launches/next").json()
+    upcomingURL = "https://api.spacexdata.com/v5/launches/upcoming"
+    data = requests.get(upcomingURL).json()
+    for launch in range(len(data)):
+        if launch == 0:
+            soonest = data[launch]
+        elif data[launch]['date_unix'] < soonest['date_unix']:
+            soonest = data[launch]
+
+    data = soonest
 
     launch_name = data['name']
     date = data['date_local']
