@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+""" Schools by topic """
 import pymongo
 
 
