@@ -7,4 +7,4 @@ FROM
 GROUP BY 
     city
 ORDER BY
-    avg_tmp DESC;
+    avg_temp DESC;
