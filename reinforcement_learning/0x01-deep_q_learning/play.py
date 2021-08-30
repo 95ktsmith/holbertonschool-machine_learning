@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" Trains an agent to play Breakout """
+""" Loads weights for an agent to play Breakout """
 import numpy as np
 import gym
 
@@ -38,6 +38,7 @@ class AtariProcessor(Processor):
 
 
 env = gym.make('Breakout-v0')
+env.reset()
 nb_actions = env.action_space.n
 
 inputs = Input(shape=((4,) + INPUT_SHAPE))
@@ -74,11 +75,6 @@ dqn = DQNAgent(
 )
 dqn.compile(K.optimizers.Adam(lr=.00025), metrics=['mae'])
 
-dqn.fit(
-    env,
-    nb_steps=1750000,
-    visualize=False,
-    verbose=2
-)
+dqn.load_weights('policy.h5')
 
-dqn.save_weights('policy.h5', overwrite=True)
+dqn.test(env, nb_episodes=10, visualize=True)
