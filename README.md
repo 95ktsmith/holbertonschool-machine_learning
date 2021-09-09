@@ -9,7 +9,7 @@
 
 * [Fine tuning a pre-trained network](https://github.com/95ktsmith/holbertonschool-machine_learning/tree/master/supervised_learning/0x09-transfer_learning)
 
-* [Recreating the YOLO v3 algorithm for object detection with a convolutional neural network]((https://github.com/95ktsmith/holbertonschool-machine_learning/tree/master/supervised_learning/0x0A-object_detection))
+* [Recreating the YOLO v3 algorithm for object detection with a convolutional neural network](https://github.com/95ktsmith/holbertonschool-machine_learning/tree/master/supervised_learning/0x0A-object_detection)
 
 * [Recreating mnist data with a variational autoencoder](https://github.com/95ktsmith/holbertonschool-machine_learning/tree/master/unsupervised_learning/0x04-autoencoders)
 
